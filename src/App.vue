@@ -12,6 +12,15 @@
     <router-view/>
   </div>
 </template>
+<script>
+import VConsole from 'vconsole'
+
+export default {
+  mounted() {
+    var vConsole = new VConsole();
+  }
+}
+</script>
 
 <style lang="stylus">
 @import '../node_modules/normalize.css/normalize.css'
