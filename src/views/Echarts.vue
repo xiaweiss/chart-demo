@@ -10,7 +10,7 @@
 import Echarts from "echarts";
 
 let data = [
-  { label: '周一', min: 1 },
+  { label: '周一', min: 5 },
   { label: '周二', min: 30 },
   { label: '周三', min: 50 },
   { label: '周四', min: 63 },
@@ -53,10 +53,50 @@ export default {
       //   data: ["销量"]
       // },
       xAxis: {
-        type: 'category'
+        type: 'category',
         // data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+        // boundaryGap: true,
+        axisTick: {
+          alignWithLabel: true
+        }
       },
-      yAxis: {},
+      yAxis: {
+        show: true,
+        type: 'value',
+        position: 'right',
+        // splitNumber: 3,
+        interval: 40,
+        min: 0,
+        max: 120,
+        axisLine: {
+          // 坐标轴线和文字配置
+          lineStyle: {
+            width: 0
+          }
+        },
+        // 坐标轴刻度相关设置
+        axisTick: {
+          show: false,
+        },
+        // 坐标轴刻度标签的相关设置
+        axisLabel: {
+          // margin: 10,
+          margin: 42,
+          // 使用字符串模板，模板变量为刻度默认标签 {value}
+          formatter: '{value}分钟',
+          color: '#B2B2B2',
+          fontSize: 10,
+          align: 'right'
+        },
+        splitLine: {
+          show: true,
+          lineStyle: {
+            color: '#D8D8D8',
+            type: 'dashed'
+            // TODO 设置虚线间隔
+          }
+        }
+      },
       dataset: {
         dimensions: ['label', 'min'],
         source: this.data
@@ -67,6 +107,19 @@ export default {
           type: "bar",
           // data: [5, 20, 36, 10, 10, 20] // -> data sourcde
           // encode: {x: 0, y: 1}
+          itemStyle: {
+            color: new Echarts.graphic.LinearGradient(
+                0, 0, 0, 1,
+                [
+                    {offset: 0, color: '#83bff6'},
+                    {offset: 0.5, color: '#188df0'},
+                    {offset: 1, color: '#188df0'}
+                ]
+            ),
+            // TODO 自定义圆角实现
+            barBorderRadius: [200, 200, 0, 0]
+          },
+
         }
       ],
       // dataZoom: {},
@@ -93,6 +146,11 @@ export default {
           dimensions: ['label', 'min'],
           source: this.data
         },
+        yAxis: {
+          interval: 80,
+          min: 0,
+          max: 240,
+        }
       })
     },
     reduce () {
@@ -103,6 +161,11 @@ export default {
           dimensions: ['label', 'min'],
           source: this.data
         },
+        yAxis: {
+          interval: 40,
+          min: 0,
+          max: 120,
+        }
       })
     }
   }
